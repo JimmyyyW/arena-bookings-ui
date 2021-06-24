@@ -10,13 +10,25 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+//import { LoginComponent } from './components/login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { BookingCalendarComponent } from './components/booking-calendar/booking-calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HorseComponentComponent
+    HorseComponentComponent,
+    //LoginComponent,
+    BookingCalendarComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -25,6 +37,10 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    NgbModule,
 
   ],
   providers: [],

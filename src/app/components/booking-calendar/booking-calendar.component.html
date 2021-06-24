@@ -1,0 +1,46 @@
+    <div
+    class="btn btn-primary"
+    mwlCalendarPreviousView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="closeOpenMonthViewDay()"
+  >
+    Previous
+  </div>
+  <div
+    class="btn btn-outline-secondary"
+    mwlCalendarToday
+    [(viewDate)]="viewDate"
+  >
+    Today
+  </div>
+  <div
+    class="btn btn-primary"
+    mwlCalendarNextView
+    [view]="view"
+    [(viewDate)]="viewDate"
+    (viewDateChange)="closeOpenMonthViewDay()"
+  >
+    Next
+  </div>
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [hourSegments]="4"
+  >
+  </mwl-calendar-day-view>
+</div>
