@@ -118,7 +118,8 @@ export class BookingCalendarComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      window.location.reload();
+      this.events = [];
+      this.populateBookings();
     })
     return undefined    
   }
