@@ -1,46 +1,27 @@
-    <div
-    class="btn btn-primary"
-    mwlCalendarPreviousView
-    [view]="view"
-    [(viewDate)]="viewDate"
-    (viewDateChange)="closeOpenMonthViewDay()"
-  >
+<h2 style="text-align: center;"> {{ parseViewDate() }} </h2>
+
+<div class="daySwapButtons">
+  <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+    (viewDateChange)="closeOpenMonthViewDay()">
     Previous
   </div>
-  <div
-    class="btn btn-outline-secondary"
-    mwlCalendarToday
-    [(viewDate)]="viewDate"
-  >
+  <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
     Today
   </div>
-  <div
-    class="btn btn-primary"
-    mwlCalendarNextView
-    [view]="view"
-    [(viewDate)]="viewDate"
-    (viewDateChange)="closeOpenMonthViewDay()"
-  >
+  <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+    (viewDateChange)="closeOpenMonthViewDay()">
     Next
   </div>
+</div>
+
+
 <div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="'month'"
-    [viewDate]="viewDate"
-    [events]="events"
-  >
+  <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events">
   </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="'week'"
-    [viewDate]="viewDate"
-    [events]="events"
-  >
+  <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
   </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="'day'"
-    [viewDate]="viewDate"
-    [events]="events"
-    [hourSegments]="4"
-  >
+  <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    [hourSegments]="4" [dayStartHour]="6" [dayEndHour]="21"
+    (hourSegmentClicked)="clickedDate = openDialog($event.date)" (eventClicked)="eventClicked($event)">
   </mwl-calendar-day-view>
 </div>

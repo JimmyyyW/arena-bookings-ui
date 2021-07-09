@@ -17,7 +17,7 @@ export class AuthService {
       .append("username", username)
       .append("password", password)
 
-    return this.http.post<any>("http://localhost:8081/api/v2/login", body.toString())
+    return this.http.post<any>("https://arena-bookings.herokuapp.com/api/v2/login", body.toString())
       .pipe((response) => {
         console.log(response);
         console.log("login successful!")

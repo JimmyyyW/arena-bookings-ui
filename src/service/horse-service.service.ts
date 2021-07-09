@@ -2,16 +2,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Horse } from 'src/model/horse-model';
+import { Horse as HorseModel } from 'src/model/booking-model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorseServiceService {
 
-  url = "http://localhost:8099"
+  url = "https://arena-bookings.herokuapp.com"
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': ''
+    })
   }
 
   constructor(private http: HttpClient) { }
@@ -24,5 +28,9 @@ export class HorseServiceService {
   getHorses(): Observable<Horse[]> {
     const newLocal = this.http.get<Horse[]>(`${this.url}/horses`, this.httpOptions);
     return newLocal
+  }
+
+  getAllHorses(): Observable<HorseModel[]> {
+    return this.http.get<HorseModel[]>(`${this.url}/horses`, this.httpOptions);
   }
 }

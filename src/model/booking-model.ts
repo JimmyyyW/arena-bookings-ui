@@ -4,7 +4,7 @@ export interface Booking {
     startTime: Date,
     endTime: Date,
     jumps: boolean,
-    sharing: false
+    sharing: boolean
 }
 
 export interface Horse {

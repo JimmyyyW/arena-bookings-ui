@@ -1,0 +1,51 @@
+<div class="dialogContainer">
+<h2 mat-dialog-title>{{ startTime }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+        <mat-label>Horse</mat-label>
+        <mat-select required formControlName='horseName'>
+            <mat-option *ngFor="let horse of horses | async" [value]="horse.horseId">
+              {{ horse.name }}
+            </mat-option>
+          </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <mat-select required formControlName='duration'>
+            <mat-option value="15">15</mat-option>
+            <mat-option value="30">30</mat-option>
+            <mat-option value="45">45</mat-option>
+            <mat-option value="60">60</mat-option>
+          </mat-select>
+    </mat-form-field>
+
+    <br>
+
+    <mat-label>Jumps</mat-label>
+    <div class="spacer"></div>
+    <mat-radio-group required formControlName="jumps">
+        <mat-radio-button value="true">Yes</mat-radio-button>
+        <div class="spacer"></div>
+        <mat-radio-button value="false">No</mat-radio-button>
+    </mat-radio-group>
+    <br>
+    <br>
+    <mat-label>Sharing</mat-label>
+    <div class="spacer"></div>
+    <mat-radio-group required formControlName="sharing">
+        <mat-radio-button value="true">Yes</mat-radio-button>
+        <div class="spacer"></div>
+        <mat-radio-button value="false">No</mat-radio-button>
+    </mat-radio-group>
+    <br>
+    <br>
+    <button (click)="submitForm()" mat-raised-button color="primary"
+    [disabled]="form.pristine || form.invalid">Confirm Booking</button>
+
+</mat-dialog-content>
+</div>
