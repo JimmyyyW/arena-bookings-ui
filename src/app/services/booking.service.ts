@@ -28,6 +28,6 @@ export class BookingService {
   }
 
   deleteById(bookingId: number) {
-    return this.http.delete(`https://arena-bookings.herokuapp.com/${bookingId}`, this.option)
+    return this.http.delete(`https://arena-bookings.herokuapp.com/bookings/${bookingId}`, this.option)
   }
 }
