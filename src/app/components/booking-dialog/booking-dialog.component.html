@@ -17,10 +17,9 @@
     <mat-form-field>
         <mat-label>Duration</mat-label>
         <mat-select required formControlName='duration'>
-            <mat-option value="15">15</mat-option>
-            <mat-option value="30">30</mat-option>
-            <mat-option value="45">45</mat-option>
-            <mat-option value="60">60</mat-option>
+            <mat-option *ngFor="let slot of slots" [value]="slot">
+                {{ slot }}
+            </mat-option>
           </mat-select>
     </mat-form-field>
 

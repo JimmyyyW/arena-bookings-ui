@@ -23,11 +23,10 @@ export class BookingService {
   }
   
   createBooking(booking: BookingRequest): Observable<Booking> {
-    console.log(booking);
     return this.http.post<Booking>('https://arena-bookings.herokuapp.com/bookings', booking, this.option)
   }
 
-  deleteById(bookingId: number) {
+  deleteById(bookingId: number): Observable<any> {
     return this.http.delete(`https://arena-bookings.herokuapp.com/bookings/${bookingId}`, this.option)
   }
 }

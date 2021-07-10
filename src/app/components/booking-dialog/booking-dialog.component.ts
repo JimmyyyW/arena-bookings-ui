@@ -15,6 +15,7 @@ export class BookingDialogComponent implements OnInit {
 
   form: FormGroup;
   startTime: string;
+  slots: number[];
   horses: Observable<Horse[]>;
   public defaultDuration = 60;
 
@@ -34,9 +35,8 @@ export class BookingDialogComponent implements OnInit {
     private bookingService: BookingService,
     @Inject(MAT_DIALOG_DATA) public bookingDetails: BookingDetails
   ) { 
+    this.slots = bookingDetails.availableSlots
     this.horses = bookingDetails.horses
-    
-    this.horses.subscribe(data => console.log(data))
     this.startTime = Object.values(this.days)[bookingDetails.startTime.getDay()] 
     + ' ' + bookingDetails.startTime.toLocaleTimeString().substr(0, 5)
     this.form = this.fb.group({
@@ -61,7 +61,6 @@ export class BookingDialogComponent implements OnInit {
   submitForm() {
     let start = this.bookingDetails.startTime;
     let timeToAdd = this.form.value['duration']
-    console.log(timeToAdd)
     let endTime = this.addMinutesToDate(start, parseInt(timeToAdd))
     this.bookingService.createBooking({
       horseId: this.form.value['horseName'],
@@ -85,7 +84,8 @@ export interface BookingDetails {
   startTime: Date,
   duration: number,
   jumps: boolean,
-  sharing: boolean
+  sharing: boolean,
+  availableSlots: number[]
 }
 
 export interface BookingRequest {

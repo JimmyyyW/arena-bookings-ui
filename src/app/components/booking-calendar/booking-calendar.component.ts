@@ -9,6 +9,8 @@ import { Horse } from 'src/model/booking-model';
 import { HorseServiceService } from 'src/service/horse-service.service';
 import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { DeleteEventDialogComponent } from '../delete-event-dialog/delete-event-dialog.component';
+import { utcToZonedTime } from 'date-fns-tz';
+import {  } from 'moment';
 
 const colors: any = {
   red: {
@@ -86,8 +88,10 @@ export class BookingCalendarComponent {
               end: setHours(setMinutes(new Date(), 30), 3),
               color: colors.red,
         */
-        const start = new Date(booking.startTime);
-        const end = new Date(booking.endTime);
+        // const start = new Date(booking.startTime);
+        // const end = new Date(booking.endTime);
+        const start = new Date(utcToZonedTime(booking.startTime, "London"));
+        const end = new Date(utcToZonedTime(booking.endTime, "London"));
         const vents = [];
         this.events.push(
           {
@@ -105,7 +109,32 @@ export class BookingCalendarComponent {
 
 
   openDialog(event: any) {
-    console.log(event)
+    if (event < new Date()) {
+      return 
+    }    
+    console.log(this.events);
+    const nextEvent = this.events.filter(existingEvent => existingEvent.end! > event)
+      .sort((a, b) => a.start.getTime() - b.start.getTime())[0].end 
+    
+    const plusThirty = this.addMinutesToDate(event, 90)
+    const plusFourtyfive = this.addMinutesToDate(event, 105)
+    const plusSixty = this.addMinutesToDate(event, 120)
+    
+    let availableSlots = [ 15, 30, 45, 60 ]
+    
+    if (plusThirty > nextEvent!) {
+      availableSlots = [ 15 ]
+    }
+
+    else if (plusFourtyfive > nextEvent!) {
+      availableSlots = [ 15, 30 ]
+    }
+
+    else if (plusSixty > nextEvent!) {
+      availableSlots = [ 15, 30, 45 ]
+    }
+
+    console.log(availableSlots);
     const dialogRef = this.createDialog.open(BookingDialogComponent, {
       width: '50%',
       data: {
@@ -113,11 +142,11 @@ export class BookingCalendarComponent {
         startTime: event,
         duration: this.duration,
         jumps: this.jumps,
-        sharing: this.sharing
+        sharing: this.sharing,
+        availableSlots: availableSlots
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.events = [];
       this.populateBookings();
     })
@@ -125,20 +154,25 @@ export class BookingCalendarComponent {
   }
 
   eventClicked(event: any) {
-    console.log(event.event.id)
     const dialogRef = this.deleteDialog.open(DeleteEventDialogComponent, {
-      width: '50%', 
+      panelClass: 'my-outlined-dialog',
       data: {
         bookingId: event.event.id
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.events = [];
+      this.populateBookings();
     })
   }
 
   parseViewDate(): string {
     return this.viewDate.toDateString()
   }
+
+  private addMinutesToDate(date: Date, minutes: number) {
+    return new Date(date.getTime() + minutes * 60000);
+}
+
 
 }

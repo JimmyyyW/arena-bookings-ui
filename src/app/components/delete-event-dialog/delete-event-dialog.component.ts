@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { BookingService } from 'src/app/services/booking.service';
 import { BookingCalendarComponent } from '../booking-calendar/booking-calendar.component';
 
@@ -30,8 +31,7 @@ export class DeleteEventDialogComponent implements OnInit {
   deleteBooking() {
     this.bookingService.deleteById(this.data.bookingId)
     .subscribe(data => {
-      console.log(data)
-      window.location.reload();
+      this.dialogRef.close();
     })
   }
 
