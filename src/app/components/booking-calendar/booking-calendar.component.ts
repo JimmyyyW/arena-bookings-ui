@@ -9,8 +9,6 @@ import { Horse } from 'src/model/booking-model';
 import { HorseServiceService } from 'src/service/horse-service.service';
 import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { DeleteEventDialogComponent } from '../delete-event-dialog/delete-event-dialog.component';
-import { utcToZonedTime } from 'date-fns-tz';
-import {  } from 'moment';
 
 const colors: any = {
   red: {
@@ -25,6 +23,10 @@ const colors: any = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  grey: {
+    primary: '#707070',    
+    secondary: '#c7c7c7'
+  }
 };
 
 @Component({
@@ -41,8 +43,6 @@ export class BookingCalendarComponent {
   view: CalendarView = CalendarView.Day;
   
   viewDate: Date = new Date();
-  
-  day = new Date().setDate(28);
   
   refresh: Subject<any> = new Subject();
   
@@ -79,6 +79,7 @@ export class BookingCalendarComponent {
     this.bookingService.getBookings().subscribe(bookings => {
       bookings.forEach(booking => {
         let colour;
+
         if (booking.jumps === true) {
           colour = colors.blue
         } else colour = colors.red
@@ -87,11 +88,15 @@ export class BookingCalendarComponent {
               start: setHours(setMinutes(new Date(), 15), 3),
               end: setHours(setMinutes(new Date(), 30), 3),
               color: colors.red,
-        */
-        // const start = new Date(booking.startTime);
-        // const end = new Date(booking.endTime);
-        const start = new Date(utcToZonedTime(booking.startTime, "London"));
-        const end = new Date(utcToZonedTime(booking.endTime, "London"));
+        */      
+
+        const start = new Date(booking.startTime);
+        const end = new Date(booking.endTime);
+
+        if (end.getTime() < this.viewDate.getTime() && this.viewDate > end) {
+          colour = colors.grey;
+        }
+
         const vents = [];
         this.events.push(
           {
@@ -112,7 +117,7 @@ export class BookingCalendarComponent {
     if (event < new Date()) {
       return 
     }    
-    console.log(this.events);
+
     const nextEvent = this.events.filter(existingEvent => existingEvent.end! > event)
       .sort((a, b) => a.start.getTime() - b.start.getTime())[0].end 
     
@@ -134,7 +139,6 @@ export class BookingCalendarComponent {
       availableSlots = [ 15, 30, 45 ]
     }
 
-    console.log(availableSlots);
     const dialogRef = this.createDialog.open(BookingDialogComponent, {
       data: {
         horses: this.horses,
