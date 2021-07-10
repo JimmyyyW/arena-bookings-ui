@@ -136,7 +136,6 @@ export class BookingCalendarComponent {
 
     console.log(availableSlots);
     const dialogRef = this.createDialog.open(BookingDialogComponent, {
-      width: '50%',
       data: {
         horses: this.horses,
         startTime: event,
