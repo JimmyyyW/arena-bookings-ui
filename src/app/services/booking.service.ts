@@ -19,14 +19,14 @@ export class BookingService {
   }  
   
   getBookings(): Observable<Booking[]> {
-    return this.http.get<Booking[]>('https://arena-bookings.herokuapp.com/bookings', this.option)
+    return this.http.get<Booking[]>('http://localhost:8080/bookings', this.option)
   }
   
   createBooking(booking: BookingRequest): Observable<Booking> {
-    return this.http.post<Booking>('https://arena-bookings.herokuapp.com/bookings', booking, this.option)
+    return this.http.post<Booking>('http://localhost:8080/bookings', booking, this.option)
   }
 
   deleteById(bookingId: number): Observable<any> {
-    return this.http.delete(`https://arena-bookings.herokuapp.com/bookings/${bookingId}`, this.option)
+    return this.http.delete(`http://localhost:8080/bookings/${bookingId}`, this.option)
   }
 }

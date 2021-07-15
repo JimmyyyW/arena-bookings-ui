@@ -78,11 +78,9 @@ export class BookingCalendarComponent {
   populateBookings() {
     this.bookingService.getBookings().subscribe(bookings => {
       bookings.forEach(booking => {
+    
         let colour;
-
-        if (booking.jumps === true) {
-          colour = colors.blue
-        } else colour = colors.red
+        
         /*
          title: 'No event end date',
               start: setHours(setMinutes(new Date(), 15), 3),
@@ -93,15 +91,24 @@ export class BookingCalendarComponent {
         const start = new Date(booking.startTime);
         const end = new Date(booking.endTime);
 
-        if (end.getTime() < this.viewDate.getTime() && this.viewDate > end) {
+        const today = new Date();
+        if (end.getTime() < today.getTime() && today > end) {
           colour = colors.grey;
         }
 
-        const vents = [];
+        let displayName = `<b>${booking.horse.name}</b>`
+        if (booking.jumps == true) {
+          displayName = displayName.concat(' -- Jumps')
+        }
+
+        if (booking.sharing == true) {
+          displayName = displayName.concat(' -- Sharing')
+        }    
+
         this.events.push(
           {
             id: booking.bookingId,
-            title: booking.horse.name,
+            title: displayName,
             start: setHours(setMinutes(start, start.getMinutes()), start.getHours()),
             end: setHours(setMinutes(end, end.getMinutes()), end.getHours()),
             color: colour,
@@ -119,11 +126,13 @@ export class BookingCalendarComponent {
     }    
 
     const nextEvent = this.events.filter(existingEvent => existingEvent.end! > event)
-      .sort((a, b) => a.start.getTime() - b.start.getTime())[0].end 
+      .sort((a, b) => a.start.getTime() - b.start.getTime())[0].start 
+
+    console.log(nextEvent)
     
-    const plusThirty = this.addMinutesToDate(event, 90)
-    const plusFourtyfive = this.addMinutesToDate(event, 105)
-    const plusSixty = this.addMinutesToDate(event, 120)
+    const plusThirty = this.addMinutesToDate(event, 30)
+    const plusFourtyfive = this.addMinutesToDate(event, 45)
+    const plusSixty = this.addMinutesToDate(event, 60)
     
     let availableSlots = [ 15, 30, 45, 60 ]
     
@@ -138,20 +147,21 @@ export class BookingCalendarComponent {
     else if (plusSixty > nextEvent!) {
       availableSlots = [ 15, 30, 45 ]
     }
-
-    const dialogRef = this.createDialog.open(BookingDialogComponent, {
-      data: {
-        horses: this.horses,
-        startTime: event,
-        duration: this.duration,
-        jumps: this.jumps,
-        sharing: this.sharing,
-        availableSlots: availableSlots
-      }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.events = [];
-      this.populateBookings();
+    this.horses?.subscribe(horses => {
+      const dialogRef = this.createDialog.open(BookingDialogComponent, {
+        data: {
+          horses: horses,
+          startTime: event,
+          duration: this.duration,
+          jumps: this.jumps,
+          sharing: this.sharing,
+          availableSlots: availableSlots
+        }
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.events = [];
+        this.populateBookings();
+      })
     })
     return undefined    
   }

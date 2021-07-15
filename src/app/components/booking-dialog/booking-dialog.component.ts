@@ -16,7 +16,7 @@ export class BookingDialogComponent implements OnInit {
   form: FormGroup;
   startTime: string;
   slots: number[];
-  horses: Observable<Horse[]>;
+  horses: Horse[];
   public defaultDuration = 60;
 
   days = {
@@ -44,12 +44,13 @@ export class BookingDialogComponent implements OnInit {
       duration: ['', Validators.required],
       jumps: ['', Validators.required],
       sharing: ['', Validators.required],
-    });
+    });    
   }
 
 
   ngOnInit(): void {
-    this.form.controls.duration.setValue('60')
+    this.form.controls.horseName.setValue(this.horses[0].name)
+    this.form.controls.duration.setValue(this.bookingDetails.availableSlots.reverse()[0])
     this.form.controls.jumps.setValue('false')
     this.form.controls.sharing.setValue('false')
   }
@@ -80,7 +81,7 @@ export class BookingDialogComponent implements OnInit {
 }
 
 export interface BookingDetails {
-  horses: Observable<Horse[]>,
+  horses: Horse[],
   startTime: Date,
   duration: number,
   jumps: boolean,

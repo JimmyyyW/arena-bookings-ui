@@ -58,7 +58,6 @@ import { DeleteEventDialogComponent } from './components/delete-event-dialog/del
 
   ],
   providers: [
-    //{ provide: MatDialogRef }
   ],
   bootstrap: [AppComponent]
 })
