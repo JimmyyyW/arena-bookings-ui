@@ -1,0 +1,49 @@
+<mat-card>
+    <div class="form-container">
+        <form [formGroup]="createCustomerForm" (ngSubmit)="submitCustomerForm()">
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="First name" formControlName="firstName" #firstName>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="Last name" formControlName="lastName" #lastName>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="First line of address" formControlName="addressOne" #addressOne>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="Second line of address" formControlName="addressTwo" #addressTwo>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="City" formControlName="city" #city>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="County" formControlName="county" #county>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="Post Code" formControlName="postCode" #postCode>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="Email" formControlName="email" #email>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="mobile" formControlName="phone" #phone (keypress)="numberOnly($event)">
+            </mat-form-field>
+            <br>
+        </form>
+        <br>
+        <button mat-raised-button color="primary" style="text-align: center;" (click)="submitCustomerForm()"
+        [disabled]="createCustomerForm.pristine || createCustomerForm.invalid"
+        >Create Customer</button>
+    </div>
+    <br>
+
+</mat-card>

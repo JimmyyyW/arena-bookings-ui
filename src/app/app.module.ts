@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
 import { DeleteEventDialogComponent } from './components/delete-event-dialog/delete-event-dialog.component';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DeleteEventDialogComponent } from './components/delete-event-dialog/del
     //LoginComponent,
     BookingCalendarComponent,
     BookingDialogComponent,
-    DeleteEventDialogComponent
+    DeleteEventDialogComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     CommonModule,
