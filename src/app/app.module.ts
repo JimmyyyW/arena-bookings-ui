@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 //import { LoginComponent } from './components/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -26,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
 import { DeleteEventDialogComponent } from './components/delete-event-dialog/delete-event-dialog.component';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
+import { AddCustomerDialogComponent } from './components/add-customer-dialog/add-customer-dialog.component';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { CustomerDetailsComponent } from './components/customer-details/customer
     BookingCalendarComponent,
     BookingDialogComponent,
     DeleteEventDialogComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    AddCustomerDialogComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { CustomerDetailsComponent } from './components/customer-details/customer
     ReactiveFormsModule,
     MatSelectModule,
     MatToolbarModule,
+    MatExpansionModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     NgbModule,
 

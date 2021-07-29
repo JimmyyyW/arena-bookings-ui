@@ -1,0 +1,21 @@
+.form-container {
+    text-align: center;
+    width: 98%;
+}
+
+.mat-dialog-title {
+    text-align: center;
+}
+
+mat-form-field {
+    width: 60%;
+}
+
+
+@media (max-width: 600px) {
+    
+    mat-form-field {
+        width: 90%;
+    }
+
+}

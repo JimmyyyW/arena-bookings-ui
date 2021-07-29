@@ -1,62 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { CustomerService } from 'src/app/services/customer.service';
+import { Customer } from 'src/model/customer-model';
+import { AddCustomerDialogComponent } from '../add-customer-dialog/add-customer-dialog.component';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 /** Error when invalid control is dirty, touched, or submitted. */
 
 @Component({
   selector: 'app-customer-details',
   templateUrl: './customer-details.component.html',
-  styleUrls: ['./customer-details.component.scss']
+  styleUrls: ['./customer-details.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ])
+  ]
 })
 export class CustomerDetailsComponent implements OnInit {
 
-  createCustomerForm: FormGroup
+  customers: Customer[] = []
+  displayedColumns: string[] = ['customerId', 'email', 'firstName', 'lastName', 'phoneNumber']
+  columnHeaders = {
+    customerId: 'ID',
+    email: 'email',
+    firstName: 'first name',
+    lastName: 'last name',
+    phoneNumber: 'phone number'
+  };
+  x: number[] = [0, 1, 2, 3, 4]
+  expandedRow: Customer | null = null;
 
-  constructor(private fb: FormBuilder) {
-    this.createCustomerForm = this.fb.group({
-      email: ['', [
-        Validators.email,
-        Validators.required,
-        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-      ]],
-      phone: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      addressOne: ['', Validators.required],
-      addressTwo: ['', Validators.required],
-      city: ['', Validators.required],
-      county: ['', Validators.required],
-      postCode: ['', Validators.required]
+  constructor(private createCustomerDialog: MatDialog, private customerService: CustomerService) {
+    this.customerService.getCustomers().subscribe(data => {
+      this.customers = data;
     })
-    //this.createCustomerForm.addControl('emailControl', new FormControl('', [Validators.email, Validators.required]))
   }
-  //
+
   ngOnInit(): void {
 
   }
 
-  submitCustomerForm() {
-    let customerDetails = {
-      email: this.createCustomerForm.get('email')?.value,
-      phone: this.createCustomerForm.get('phone')?.value,
-      firstName: this.createCustomerForm.get('firstName')?.value,
-      lastName: this.createCustomerForm.get('lastName')?.value,
-      addressOne: this.createCustomerForm.get('addressOne')?.value,
-      addressTwo: this.createCustomerForm.get('addressTwo')?.value,
-      city: this.createCustomerForm.get('city')?.value,
-      county: this.createCustomerForm.get('county')?.value,
-      postCode: this.createCustomerForm.get('postCode')?.value
-    }
-    console.log(customerDetails);
+  openCreateCustomerDialog() {
+    const dialogRef = this.createCustomerDialog.open(AddCustomerDialogComponent, {
+      minWidth: '600px',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe((result)=> {
+      console.log(result);
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    })
   }
 
-  numberOnly(event: any): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+  wrap(inp: any) {
+    if (inp == 'customerId') {
+      return 'ID'
+    } 
+    else if (inp == 'firstName') {
+      return 'first name'
     }
-    return true;
+    else if (inp == 'lastName') {
+      return 'last name'
+    }
+    else if (inp == 'phoneNumber') {
+      return 'mobile'
+    }
+    else return inp
   }
+}
 
+export interface CustomerDetails {
+  email: string
+  phoneNumber: string
+  firstName: string
+  lastName: string
+  addressOne: string
+  addressTwo: string
+  city: string
+  county: string
+  postCode: string
 }
 
