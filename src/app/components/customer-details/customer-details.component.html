@@ -38,6 +38,16 @@
                     <div class="example-element-detail" [@detailExpand]="row == expandedRow ? 'expanded' : 'collapsed'">
                         <div class="customer-details">
                             <br>
+                            <b>Details</b>
+                            <p>
+                                {{row.firstName}}
+                                <br>
+                                {{row.lastName}}
+                                <br>
+                                {{row.email}}
+                                <br>
+                                {{row.phoneNumber}}
+                            </p>
                             <b>Address</b>
                             <p>
                                 {{row.addressOne}}

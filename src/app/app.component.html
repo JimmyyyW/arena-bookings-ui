@@ -1,11 +1,11 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary">    
     <ng-template [ngIf]="condition">
         <div>
             <button mat-button color="secondary" [routerLink]="buttonRoute" (click)="updateButtonRoute()">{{ buttonName }}</button>
             <!-- <button mat-button color="secondary" [routerLink]="'/bookings'">Bookings</button> -->
         </div>
     </ng-template>
-
+    
     <div style="text-align: center; width: 100%; display: inline-block;">
         <span>Tithe Farm Livery Stables</span>
     </div>

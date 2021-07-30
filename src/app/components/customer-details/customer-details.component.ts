@@ -24,14 +24,7 @@ import { AddHorseDialogComponent } from '../add-horse-dialog/add-horse-dialog.co
 export class CustomerDetailsComponent implements OnInit {
 
   customers: Customer[] = []
-  displayedColumns: string[] = ['customerId', 'email', 'firstName', 'lastName', 'phoneNumber']
-  columnHeaders = {
-    customerId: 'ID',
-    email: 'email',
-    firstName: 'first name',
-    lastName: 'last name',
-    phoneNumber: 'phone number'
-  };
+  displayedColumns: string[] = ['firstName', 'lastName']
   x: number[] = [0, 1, 2, 3, 4]
   expandedRow: Customer | null = null;
 
@@ -49,6 +42,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   openCreateCustomerDialog() {
     const dialogRef = this.createCustomerDialog.open(AddCustomerDialogComponent, {
+      width: '90%',
       data: {}
     });
     dialogRef.afterClosed().subscribe((result)=> {
@@ -61,6 +55,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   openAddHorseDialog(customerId: number) {
     const dialogRef = this.addHorseDialog.open(AddHorseDialogComponent, {
+      width: '90%',
       data: {
         customerId: customerId
       }
