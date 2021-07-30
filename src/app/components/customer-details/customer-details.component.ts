@@ -5,6 +5,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from 'src/model/customer-model';
 import { AddCustomerDialogComponent } from '../add-customer-dialog/add-customer-dialog.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { AddHorseDialogComponent } from '../add-horse-dialog/add-horse-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 
@@ -15,7 +16,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('expanded', style({height: '*', width: '80%'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ])
   ]
@@ -34,7 +35,9 @@ export class CustomerDetailsComponent implements OnInit {
   x: number[] = [0, 1, 2, 3, 4]
   expandedRow: Customer | null = null;
 
-  constructor(private createCustomerDialog: MatDialog, private customerService: CustomerService) {
+  constructor(private createCustomerDialog: MatDialog,
+     private customerService: CustomerService,
+     private addHorseDialog: MatDialog) {
     this.customerService.getCustomers().subscribe(data => {
       this.customers = data;
     })
@@ -55,6 +58,21 @@ export class CustomerDetailsComponent implements OnInit {
         this.customers = data;
       });
     })
+  }
+
+  openAddHorseDialog(customerId: number) {
+    const dialogRef = this.addHorseDialog.open(AddHorseDialogComponent, {
+      minWidth: '600px',
+      data: {
+        customerId: customerId
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    })
+    
   }
 
   wrap(inp: any) {

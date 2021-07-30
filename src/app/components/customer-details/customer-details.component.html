@@ -36,9 +36,34 @@
             <ng-container matColumnDef="expandedDetail">
                 <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
                     <div class="example-element-detail" [@detailExpand]="row == expandedRow ? 'expanded' : 'collapsed'">
-                        <div class="example-element-diagram">
-                            <div class="example-element-position"> {{row.addressOne}} </div>
-                            <div class="example-element-symbol"> {{row.addressTwo}} </div>
+                        <div class="customer-details">
+                            <br>
+                            <b>Address</b>
+                            <p>
+                                {{row.addressOne}}
+                                <br>
+                                {{row.addressTwo}}
+                                <br>
+                                {{row.city}}
+                                <br>
+                                {{row.county}}
+                                <br>
+                                {{row.postCode}}
+                            </p>
+                            <b>Horses</b>
+                            <div *ngFor="let horse of row.horses;">
+
+
+                                {{horse.name}}
+
+
+                            </div>                        
+                            <br>
+                            <button mat-raised-button color="primary" (click)="openAddHorseDialog(row.customerId)">Add Horse</button>
+                            <br>
+                            <br>
+                            <!-- <div class="example-element-symbol"> {{row.addressTwo}} </div> -->
+
                             <!-- <div class="example-element-name"> {{element.name}} </div>
                                 <div class="example-element-weight"> {{element.weight}} </div> -->
                         </div>
@@ -53,7 +78,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"
                 [class.example-expandedrow]="expandedRow === row"
-                (click)="expandedRow = expandedRow === row ? null : row">
+                (click)="expandedRow = expandedRow === row ? null : row" style="width: 100%;">
 
             </tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>

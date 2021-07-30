@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { BookingService } from 'src/app/services/booking.service';
 import { Horse } from 'src/model/booking-model';
-import { HorseServiceService } from 'src/service/horse-service.service';
+import { HorseService } from 'src/service/horse-service.service';
 import { BookingDialogComponent } from '../booking-dialog/booking-dialog.component';
 import { DeleteEventDialogComponent } from '../delete-event-dialog/delete-event-dialog.component';
 
@@ -62,7 +62,7 @@ export class BookingCalendarComponent {
   constructor(private bookingService: BookingService,
     public createDialog: MatDialog,
     public deleteDialog: MatDialog,
-    private horseService: HorseServiceService
+    private horseService: HorseService
   ) {
   }
   

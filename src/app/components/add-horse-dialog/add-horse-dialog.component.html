@@ -1,0 +1,9 @@
+
+<div style="text-align: center; width: 100%;">
+<mat-form-field appearance="fill">
+    <mat-label>Horse</mat-label>
+    <input matInput placeholder="horse name" name="horse" #horse>
+</mat-form-field>
+<br>
+<button mat-raised-button (click)="createHorse(horse.value)">Add</button>
+</div>

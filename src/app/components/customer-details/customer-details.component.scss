@@ -25,12 +25,30 @@ table {
     color: rgb(53, 30, 180);
 }
 
+.customer-details {
+    
+}
+
+.address {
+    display: inline-block;
+}
+
+.horses {
+    text-align: right;
+    width: 50%;
+}
+
+.horse {
+    width: 100%;
+}
+
 .mat-column-right {
     text-align: center;
     text-emphasis-color: red;
 }
 
 tr.example-detail-row {
+    width: 80%;
     height: 0;
   }
   
@@ -50,26 +68,8 @@ tr.example-detail-row {
     overflow: hidden;
     display: flex;
   }
-  
-  .example-element-diagram {
-    min-width: 80px;
-    border: 2px solid black;
-    padding: 8px;
-    font-weight: lighter;
-    margin: 8px 0;
-    height: 104px;
+
+  .example-expandedrow {
+      width: 100%;
   }
   
-  .example-element-symbol {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
-  }
-  
-  .example-element-description {
-    padding: 16px;
-  }
-  
-  .example-element-description-attribution {
-    opacity: 0.5;
-  }

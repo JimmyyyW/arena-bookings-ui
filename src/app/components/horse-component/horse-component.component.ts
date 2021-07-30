@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Horse } from 'src/model/horse-model';
-import { HorseServiceService } from 'src/service/horse-service.service';
+import { HorseService } from 'src/service/horse-service.service';
 
 @Component({
   selector: 'app-horse-component',
@@ -13,7 +13,7 @@ export class HorseComponentComponent implements OnInit {
   horses: Observable<Horse[]>
   displayedColumns: String[] = ['horseId', 'name'];
 
-  constructor(horseService: HorseServiceService) { 
+  constructor(horseService: HorseService) { 
       this.horses = horseService.getHorses()
 
   }
