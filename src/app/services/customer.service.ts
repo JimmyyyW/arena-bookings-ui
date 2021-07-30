@@ -8,7 +8,8 @@ import { CustomerDetails } from '../components/customer-details/customer-details
 })
 export class CustomerService {
 
-  baseUrl = 'http://localhost:8080'
+  //baseUrl = 'http://localhost:8080'
+  baseUrl = 'https://arena-bookings.herokuapp.com'
 
   option = {
     headers: new HttpHeaders()

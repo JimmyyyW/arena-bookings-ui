@@ -9,8 +9,8 @@ import { Horse as HorseModel } from 'src/model/booking-model'
 })
 export class HorseService {
 
-  //url = "https://arena-bookings.herokuapp.com"
-  url = "http://localhost:8080"
+  url = "https://arena-bookings.herokuapp.com"
+  //url = "http://localhost:8080"
 
   httpOptions = {
     headers: new HttpHeaders({
