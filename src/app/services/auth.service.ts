@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { pipe } from 'rxjs';
 
@@ -9,6 +9,11 @@ export class AuthService {
 
   isLoggedIn = false;
 
+  option = {
+    headers: new HttpHeaders().append('Content-Type', 'application/x-www-form-urlencoded'),
+    withCredentials: true
+  }
+
   constructor(private http: HttpClient) { }
 
 
@@ -17,7 +22,7 @@ export class AuthService {
       .append("username", username)
       .append("password", password)
 
-    return this.http.post<any>("https://arena-bookings.herokuapp.com/api/v2/login", body.toString())
+    return this.http.post<any>("https://arena-bookings.herokuapp.com/login", body.toString(), this.option)
       .pipe((response) => {
         console.log(response);
         console.log("login successful!")

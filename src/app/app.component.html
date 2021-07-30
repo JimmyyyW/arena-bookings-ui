@@ -1,8 +1,17 @@
-<mat-toolbar>
-    <div style="text-align: center; width: 100%;">
-        Tithe Farm Livery Stables
+<mat-toolbar color="primary">
+    <ng-template [ngIf]="condition">
+        <div>
+            <button mat-button color="secondary" [routerLink]="buttonRoute" (click)="updateButtonRoute()">{{ buttonName }}</button>
+            <!-- <button mat-button color="secondary" [routerLink]="'/bookings'">Bookings</button> -->
+        </div>
+    </ng-template>
+
+    <div style="text-align: center; width: 100%; display: inline-block;">
+        <span>Tithe Farm Livery Stables</span>
     </div>
-    
+    <div class="right-spacer"></div>
+
+
 </mat-toolbar>
 <br>
 <!-- <button mat-raised-button color='primary' routerLink="/horses">Render Horses</button> -->

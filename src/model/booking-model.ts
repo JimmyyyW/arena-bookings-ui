@@ -8,7 +8,7 @@ export interface Booking {
 }
 
 export interface Horse {
-    horseId: number,
+    horseId: number | undefined,
     customer: Customer,
     name: string
 }

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HorseComponentComponent } from './components/horse-component/horse-component.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,18 +27,19 @@ import { BookingDialogComponent } from './components/booking-dialog/booking-dial
 import { DeleteEventDialogComponent } from './components/delete-event-dialog/delete-event-dialog.component';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { AddCustomerDialogComponent } from './components/add-customer-dialog/add-customer-dialog.component';
+import { AddHorseDialogComponent } from './components/add-horse-dialog/add-horse-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HorseComponentComponent,
     //LoginComponent,
     BookingCalendarComponent,
     BookingDialogComponent,
     DeleteEventDialogComponent,
     CustomerDetailsComponent,
-    AddCustomerDialogComponent
+    AddCustomerDialogComponent,
+    AddHorseDialogComponent
   ],
   imports: [
     CommonModule,
