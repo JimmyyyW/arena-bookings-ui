@@ -49,7 +49,6 @@ export class CustomerDetailsComponent implements OnInit {
 
   openCreateCustomerDialog() {
     const dialogRef = this.createCustomerDialog.open(AddCustomerDialogComponent, {
-      minWidth: '600px',
       data: {}
     });
     dialogRef.afterClosed().subscribe((result)=> {
@@ -62,7 +61,6 @@ export class CustomerDetailsComponent implements OnInit {
 
   openAddHorseDialog(customerId: number) {
     const dialogRef = this.addHorseDialog.open(AddHorseDialogComponent, {
-      minWidth: '600px',
       data: {
         customerId: customerId
       }
