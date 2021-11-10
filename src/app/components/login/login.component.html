@@ -1,6 +1,30 @@
-<p>login works</p>
-
 <br>
+
+<div class="login-container">
+    <mat-card>
+    <section class="mat-typography">
+        <h2>Login</h2>
+    </section>
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+        <mat-form-field class="loginForm">
+            <input matInput placeholder="username" formControlName="username" #username>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="loginForm">
+            <input matInput placeholder="password" type="password" formControlName="password" #password>
+        </mat-form-field>
+    </form>
+
+    <button class="btn btn-primary"
+     type="button"
+     (click)="submitLoginForm()"
+     [disabled]="loginForm.pristine || loginForm.invalid"
+     mat-raised-button color="primary">
+        Submit
+    </button>
+    </mat-card>
+        
+</div>
 
 <!-- <br>
 <div class ="login-card">

@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup
+  loginForm: FormGroup;
+  failedLogin: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,17 +32,20 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
 
   submitLoginForm() {
     this.authService.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value)
       .subscribe(
-        user => {
-          console.log(user)
-          this.router.navigateByUrl('/home');
+        (response: HttpResponse<any>) => {        
+          if (response.headers.get('Authorization') !== undefined || response.headers.get('Authorization') !== null) {
+            localStorage.setItem('token', response.headers.get('Authorization')!)          
+            this.router.navigateByUrl('/bookings');
+          } 
         },
         error => {
-          console.log(error);
+          alert('Invalid Credentials!')
         }
       )
   }

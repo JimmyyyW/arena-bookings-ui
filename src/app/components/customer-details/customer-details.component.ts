@@ -2,10 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
-import { Customer } from 'src/model/customer-model';
+import { Customer, CustomerHorse, CustomerUser } from 'src/model/customer-model';
 import { AddCustomerDialogComponent } from '../add-customer-dialog/add-customer-dialog.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { AddHorseDialogComponent } from '../add-horse-dialog/add-horse-dialog.component';
+import { DeleteHorseDialogComponent } from '../delete-horse-dialog/delete-horse-dialog.component';
+import { EditCustomerDetailsDialogComponent } from '../edit-customer-details-dialog/edit-customer-details-dialog.component';
+import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
+import { User } from 'src/app/services/user.service';
+import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 
@@ -30,9 +35,15 @@ export class CustomerDetailsComponent implements OnInit {
 
   constructor(private createCustomerDialog: MatDialog,
      private customerService: CustomerService,
-     private addHorseDialog: MatDialog) {
+     private addHorseDialog: MatDialog,
+     private deleteHorseDialog: MatDialog,
+     private editCustomerDialog: MatDialog,
+     private addUserDialog: MatDialog,
+     private deleteUserDialog: MatDialog
+     ) {
     this.customerService.getCustomers().subscribe(data => {
       this.customers = data;
+      console.log(this.customers);
     })
   }
 
@@ -46,7 +57,6 @@ export class CustomerDetailsComponent implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe((result)=> {
-      console.log(result);
       this.customerService.getCustomers().subscribe(data => {
         this.customers = data;
       });
@@ -68,6 +78,65 @@ export class CustomerDetailsComponent implements OnInit {
     
   }
 
+  openDeleteHorseDialog(horses: CustomerHorse[]) {
+    const dialogRef = this.deleteHorseDialog.open(DeleteHorseDialogComponent, {
+      width: '90%',
+      data: {
+        horses: horses
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    })
+  }
+
+  openEditCustomerDialog(customerId: Number, customerDetails: CustomerDetails) {
+    const dialogRef = this.editCustomerDialog.open(EditCustomerDetailsDialogComponent, {
+      width: '90%',
+      data: {
+        customerId: customerId,
+        customerDetails: customerDetails
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    });
+  }
+
+  openAddUserDialog(customerId: number) {
+    const dialogRef = this.addUserDialog.open(AddUserDialogComponent, {
+      width: '90%',     
+      data: {
+        customerId: customerId
+      } 
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    });
+    
+  } 
+
+  openDeleteUserDialog(users: CustomerUser[]) {
+    const dialogRef = this.deleteUserDialog.open(DeleteUserDialogComponent, {
+      width: '90%',
+      data: {
+        users: users
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.customerService.getCustomers().subscribe(data => {
+        this.customers = data;
+      });
+    });
+    
+  }
+
   wrap(inp: any) {
     if (inp == 'customerId') {
       return 'ID'
@@ -82,6 +151,12 @@ export class CustomerDetailsComponent implements OnInit {
       return 'mobile'
     }
     else return inp
+  }
+
+  formatRoleName(role: string): string {
+    if (role === 'ROLE_ADMIN') return 'Admin' 
+    else if (role === 'ROLE_USER') return 'User'
+    else return ''
   }
 }
 

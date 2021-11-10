@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Booking } from 'src/model/booking-model';
 import { BookingDetails, BookingRequest } from '../components/booking-dialog/booking-dialog.component';
 
@@ -10,24 +11,26 @@ import { BookingDetails, BookingRequest } from '../components/booking-dialog/boo
 export class BookingService {
   
   constructor(private http: HttpClient) { }
+
+  baseUrl = environment.serverUrl
   
   option = {
     headers: new HttpHeaders()
     .append('Content-Type', 'application/json')
     .append('Access-Control-Allow-Origin', '*')
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5LGFkbWluIiwiaXNzIjoiZXhhbXBsZS5pbyIsImlhdCI6MTYyNTc3MjI2MSwiZXhwIjoxNjI2Mzc3MDYxfQ.q8TDJgjTkeOXlkR5HP1otQUa6PtECIafxlVm-d4YtPB-paWnO6GU2YNkRZ6KVQy-RyG5k2aYxTt6Yrbv-zLEUQ'),
+    .append('Authorization', 'Bearer ' + localStorage.getItem('token')),
   }  
   
   getBookings(): Observable<Booking[]> {
-    //return this.http.get<Booking[]>('http://localhost:8080/bookings', this.option)
-    return this.http.get<Booking[]>('https://arena-bookings.herokuapp.com/bookings', this.option)
+    //return this.http.get<Booking[]>('http://localhost:8080/bookings', this.option)  
+    return this.http.get<Booking[]>(`${this.baseUrl}/bookings`, this.option)
   }
   
   createBooking(booking: BookingRequest): Observable<Booking> {
-    return this.http.post<Booking>('https://arena-bookings.herokuapp.com/bookings', booking, this.option)
+    return this.http.post<Booking>(`${this.baseUrl}/bookings`, booking, this.option)
   }
 
   deleteById(bookingId: number): Observable<any> {
-    return this.http.delete(`https://arena-bookings.herokuapp.com/bookings/${bookingId}`, this.option)
+    return this.http.delete(`${this.baseUrl}/${bookingId}`, this.option)
   }
 }

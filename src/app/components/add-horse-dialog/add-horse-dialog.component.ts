@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -26,6 +27,10 @@ export class AddHorseDialogComponent implements OnInit {
         this.dialogRef.close();
       } else alert('Failed to create horse!');
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
   ngOnInit(): void {

@@ -1,50 +1,50 @@
 <div class="dialogContainer">
-<h2 mat-dialog-title>{{ startTime }}</h2>
+    <h2 mat-dialog-title>{{ startTime }}</h2>
 
-<mat-dialog-content [formGroup]="form">
+    <mat-dialog-content [formGroup]="form">
 
-    <mat-form-field>
-        <mat-label>Horse</mat-label>
-        <mat-select required formControlName='horseName'>
-            <mat-option *ngFor="let horse of horses" [value]="horse.horseId">
-              {{ horse.name }}
-            </mat-option>
-          </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Horse</mat-label>
+            <mat-select required formControlName='horseName'>
+                <mat-option *ngFor="let horse of horses" [value]="horse.horseId">
+                    {{ horse.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <br>
+        <br>
 
-    <mat-form-field>
-        <mat-label>Duration</mat-label>
-        <mat-select required formControlName='duration'>
-            <mat-option *ngFor="let slot of slots" [value]="slot">
-                {{ slot }}
-            </mat-option>
-          </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Duration</mat-label>
+            <mat-select required formControlName='duration'>
+                <mat-option *ngFor="let slot of slots" [value]="slot">
+                    {{ slot }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <br>
+        <br>
 
-    <mat-label>Jumps</mat-label>
-    <div class="spacer"></div>
-    <mat-radio-group required formControlName="jumps">
-        <mat-radio-button value="true">Yes</mat-radio-button>
+        <mat-label>Jumps</mat-label>
         <div class="spacer"></div>
-        <mat-radio-button value="false">No</mat-radio-button>
-    </mat-radio-group>
-    <br>
-    <br>
-    <mat-label>Sharing</mat-label>
-    <div class="spacer"></div>
-    <mat-radio-group required formControlName="sharing">
-        <mat-radio-button value="true">Yes</mat-radio-button>
+        <mat-radio-group required formControlName="jumps">
+            <mat-radio-button value="true">Yes</mat-radio-button>
+            <div class="spacer"></div>
+            <mat-radio-button value="false">No</mat-radio-button>
+        </mat-radio-group>
+        <br>
+        <br>
+        <mat-label>Sharing</mat-label>
         <div class="spacer"></div>
-        <mat-radio-button value="false">No</mat-radio-button>
-    </mat-radio-group>
-    <br>
-    <br>
-    <button (click)="submitForm()" mat-raised-button color="primary"
-    [disabled]="form.pristine || form.invalid">Confirm Booking</button>
+        <mat-radio-group required formControlName="sharing">
+            <mat-radio-button value="true">Yes</mat-radio-button>
+            <div class="spacer"></div>
+            <mat-radio-button value="false">No</mat-radio-button>
+        </mat-radio-group>
+        <br>
+        <br>
+        <button (click)="submitForm()" mat-raised-button color="primary"
+            [disabled]="form.pristine || form.invalid">Confirm Booking</button>
 
-</mat-dialog-content>
+    </mat-dialog-content>
 </div>

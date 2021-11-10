@@ -50,7 +50,6 @@ export class AddCustomerDialogComponent implements OnInit {
       postCode: this.createCustomerForm.get('postCode')?.value
     }).subscribe((data) => {
       //do what here?
-      console.log(data)
       this.dialogRef.close();
     })
     

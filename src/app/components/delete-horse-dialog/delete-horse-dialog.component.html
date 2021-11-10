@@ -1,0 +1,14 @@
+<p mat-dialog-title>Select a horse to delete</p>
+<mat-form-field>
+    <mat-dialog-content [formGroup]="form">
+        <mat-select required formControlName='horseName'>
+            <mat-option *ngFor="let horse of horses" [value]="horse.horseId">
+                {{ horse.name }}
+            </mat-option>
+        </mat-select>
+
+    </mat-dialog-content>
+</mat-form-field>
+<br>
+<button (click)="submitDeleteHorseForm()" mat-raised-button color="primary"
+    [disabled]="form.pristine || form.invalid">Delete</button>

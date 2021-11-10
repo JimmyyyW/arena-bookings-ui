@@ -5,5 +5,6 @@
     <input matInput placeholder="horse name" name="horse" #horse>
 </mat-form-field>
 <br>
-<button mat-raised-button (click)="createHorse(horse.value)">Add</button>
+<button mat-raised-button type="button" color="secondary" (click)="closeDialog()">Cancel</button>
+<button mat-raised-button color="primary" (click)="createHorse(horse.value)">Add</button>
 </div>

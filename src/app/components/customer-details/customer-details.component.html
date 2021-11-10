@@ -60,6 +60,11 @@
                                 <br>
                                 {{row.postCode}}
                             </p>
+
+                            <button mat-raised-button color="primary"
+                                (click)="openEditCustomerDialog(row.customerId, row)">Edit Details</button>
+                            <br>
+                            <br>
                             <b>Horses</b>
                             <div *ngFor="let horse of row.horses;">
 
@@ -67,9 +72,36 @@
                                 {{horse.name}}
 
 
-                            </div>                        
+                            </div>
                             <br>
-                            <button mat-raised-button color="primary" (click)="openAddHorseDialog(row.customerId)">Add Horse</button>
+                            <button mat-raised-button class="mat-horse-button" color="primary"
+                                (click)="openAddHorseDialog(row.customerId)">Add Horse</button>
+                            <!-- <div class="spacer"></div> -->
+                            <button mat-raised-button color="primary" (click)="openDeleteHorseDialog(row.horses)">Delete
+                                horse</button>
+
+
+                            <br>
+                            <br>
+                            <b>Users</b>
+                            <div *ngFor="let user of row.users;">
+                                
+                                    <b>username</b>: {{user.username}}
+                                    <br>
+                                    <b>enabled</b>: {{user.enabled}}
+                                
+                                    <div *ngFor="let role of user.roles;">
+                                        <b>role</b>: {{ formatRoleName(role.roleName) }}                                                                            
+                                    </div>
+                                    
+                                    <br>
+                            </div>
+                            
+                            <br>
+                            <button mat-raised-button class="mat-horse-button" color="primary"
+                                (click)="openAddUserDialog(row.customerId)">Add User</button>
+                            <button mat-raised-button color="primary" (click)="openDeleteUserDialog(row.users)">Delete
+                                    User</button>
                             <br>
                             <br>
                             <!-- <div class="example-element-symbol"> {{row.addressTwo}} </div> -->
@@ -80,7 +112,7 @@
                         <!-- <div class="example-element-description">
                                 {{row.horses}}
                                 <span class="example-element-description-attribution"> -- Wikipedia </span>
-                              </div> -->
+                            </div> -->
                     </div>
                 </td>
             </ng-container>

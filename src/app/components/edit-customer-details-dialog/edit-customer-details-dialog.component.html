@@ -1,0 +1,45 @@
+<p>edit-customer-details-dialog works!</p>
+<mat-dialog-content [formGroup]="form">
+    <div class="form-container">
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="First name" formControlName="firstName" #firstName>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="Last name" formControlName="lastName" #lastName>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="First line of address" formControlName="addressOne" #addressOne>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="Second line of address" formControlName="addressTwo" #addressTwo>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="City" formControlName="city" #city>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="County" formControlName="county" #county>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="Post Code" formControlName="postCode" #postCode>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="Email" formControlName="email" #email>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+            <input matInput placeholder="Mobile" formControlName="phone" #phone (keypress)="numberOnly($event)">
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" style="text-align: center;" (click)="submitEditCustomerForm()"
+            [disabled]=" form.invalid">Submit</button>
+
+    </div>
+</mat-dialog-content>

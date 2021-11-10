@@ -10,7 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-//import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,18 +28,26 @@ import { DeleteEventDialogComponent } from './components/delete-event-dialog/del
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { AddCustomerDialogComponent } from './components/add-customer-dialog/add-customer-dialog.component';
 import { AddHorseDialogComponent } from './components/add-horse-dialog/add-horse-dialog.component';
+import { DeleteHorseDialogComponent } from './components/delete-horse-dialog/delete-horse-dialog.component';
+import { EditCustomerDetailsDialogComponent } from './components/edit-customer-details-dialog/edit-customer-details-dialog.component';
+import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
+import { DeleteUserDialogComponent } from './components/delete-user-dialog/delete-user-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    //LoginComponent,
+    LoginComponent,
     BookingCalendarComponent,
     BookingDialogComponent,
     DeleteEventDialogComponent,
     CustomerDetailsComponent,
     AddCustomerDialogComponent,
-    AddHorseDialogComponent
+    AddHorseDialogComponent,
+    DeleteHorseDialogComponent,
+    EditCustomerDetailsDialogComponent,
+    AddUserDialogComponent,
+    DeleteUserDialogComponent
   ],
   imports: [
     CommonModule,

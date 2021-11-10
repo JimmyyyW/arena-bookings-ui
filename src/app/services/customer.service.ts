@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Customer } from 'src/model/customer-model';
 import { CustomerDetails } from '../components/customer-details/customer-details.component';
 
@@ -9,24 +10,29 @@ import { CustomerDetails } from '../components/customer-details/customer-details
 export class CustomerService {
 
   //baseUrl = 'http://localhost:8080'
-  baseUrl = 'https://arena-bookings.herokuapp.com'
+  baseUrl = environment.serverUrl
 
   option = {
     headers: new HttpHeaders()
     .append('Content-Type', 'application/json')
     .append('Access-Control-Allow-Origin', '*')
-    .append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5LGFkbWluIiwiaXNzIjoiZXhhbXBsZS5pbyIsImlhdCI6MTYyNTc3MjI2MSwiZXhwIjoxNjI2Mzc3MDYxfQ.q8TDJgjTkeOXlkR5HP1otQUa6PtECIafxlVm-d4YtPB-paWnO6GU2YNkRZ6KVQy-RyG5k2aYxTt6Yrbv-zLEUQ'),
+    .append('Authorization', 'Bearer ' + localStorage.getItem('token')),
   }  
   
 
   constructor(private http: HttpClient) { }
 
-  createCustomer(customerDetails: CustomerDetails) {
+  createCustomer(customerDetails: CustomerDetails) {  
     return this.http.post<Customer>(`${this.baseUrl}/customers`, customerDetails, this.option);
   }
 
   getCustomers() {
+    console.log(this.baseUrl);
     return this.http.get<Customer[]>(`${this.baseUrl}/customers`, this.option);
+  }
+
+  updateCustomer(customerId: number, customerDetails: CustomerDetails) {
+    return this.http.put<Customer>(`${this.baseUrl}/customers/${customerId}`, customerDetails, this.option);
   }
 
 }
