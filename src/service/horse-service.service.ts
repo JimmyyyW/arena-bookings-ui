@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class HorseService {
+  
 
   //url = "https://arena-bookings.herokuapp.com"
   baseUrl = environment.serverUrl
@@ -39,6 +40,10 @@ export class HorseService {
   getHorses(): Observable<Horse[]> {
     const newLocal = this.http.get<Horse[]>(`${this.baseUrl}/horses`, this.httpOptions);
     return newLocal
+  }
+
+  getMyHorses(): Observable<HorseModel[]> {
+    return this.http.get<HorseModel[]>(`${this.baseUrl}/me/horses`, this.httpOptions);
   }
 
   getAllHorses(): Observable<HorseModel[]> {

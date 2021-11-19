@@ -7,6 +7,11 @@ export interface Booking {
     sharing: boolean
 }
 
+export interface BookingCustomer {
+    booking: Booking,
+    customerId: number
+}
+
 export interface Horse {
     horseId: number | undefined,
     customer: Customer,

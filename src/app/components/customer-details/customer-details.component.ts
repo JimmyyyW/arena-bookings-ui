@@ -43,7 +43,6 @@ export class CustomerDetailsComponent implements OnInit {
      ) {
     this.customerService.getCustomers().subscribe(data => {
       this.customers = data;
-      console.log(this.customers);
     })
   }
 

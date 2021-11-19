@@ -72,12 +72,12 @@ export class BookingCalendarComponent {
 
   ngOnInit(): void {
     this.populateBookings();
-    this.horses = this.horseService.getAllHorses()
+    this.horses = this.horseService.getMyHorses()
   }
 
   populateBookings() {
     this.bookingService.getBookings().subscribe(bookings => {
-      bookings.forEach(booking => {
+      bookings.forEach(bookingCustomer => {
     
         let colour;
         
@@ -88,26 +88,31 @@ export class BookingCalendarComponent {
               color: colors.red,
         */      
 
-        const start = new Date(booking.startTime);
-        const end = new Date(booking.endTime);
+        const start = new Date(bookingCustomer.booking.startTime);
+        const end = new Date(bookingCustomer.booking.endTime);
 
+        if (bookingCustomer.customerId.toString() === localStorage.getItem('customerId')) {
+          colour = colors.yellow;
+        }
+        
         const today = new Date();
         if (end.getTime() < today.getTime() && today > end) {
           colour = colors.grey;
         }
 
-        let displayName = `<b>${booking.horse.name}</b>`
-        if (booking.jumps == true) {
+        let displayName = `<b>${bookingCustomer.booking.horse.name}</b>`
+        if (bookingCustomer.booking.jumps == true) {
           displayName = displayName.concat(' -- Jumps')
         }
 
-        if (booking.sharing == true) {
+        if (bookingCustomer.booking.sharing == true) {
           displayName = displayName.concat(' -- Sharing')
         }    
 
+
         this.events.push(
           {
-            id: booking.bookingId,
+            id: bookingCustomer.booking.bookingId,
             title: displayName,
             start: setHours(setMinutes(start, start.getMinutes()), start.getHours()),
             end: setHours(setMinutes(end, end.getMinutes()), end.getHours()),
@@ -121,14 +126,15 @@ export class BookingCalendarComponent {
 
 
   openDialog(event: any) {
+        
+
     if (event < new Date()) {
       return 
     }    
 
     const nextEvent = this.events.filter(existingEvent => existingEvent.end! > event)
-      .sort((a, b) => a.start.getTime() - b.start.getTime())[0].start 
+      .sort((a, b) => a.start.getTime() - b.start.getTime())[0]
 
-    console.log(nextEvent)
     
     const plusThirty = this.addMinutesToDate(event, 30)
     const plusFourtyfive = this.addMinutesToDate(event, 45)
@@ -136,47 +142,60 @@ export class BookingCalendarComponent {
     
     let availableSlots = [ 15, 30, 45, 60 ]
     
-    if (plusThirty > nextEvent!) {
+    if (nextEvent.start === undefined) {
+      availableSlots = [ 15, 30, 45, 60 ]
+    }
+    
+    else if (plusThirty > nextEvent.start!) {
       availableSlots = [ 15 ]
     }
 
-    else if (plusFourtyfive > nextEvent!) {
+    else if (plusFourtyfive > nextEvent.start!) {
       availableSlots = [ 15, 30 ]
     }
 
-    else if (plusSixty > nextEvent!) {
+    else if (plusSixty > nextEvent.start!) {
       availableSlots = [ 15, 30, 45 ]
     }
     this.horses?.subscribe(horses => {
-      const dialogRef = this.createDialog.open(BookingDialogComponent, {
-        data: {
-          horses: horses,
-          startTime: event,
-          duration: this.duration,
-          jumps: this.jumps,
-          sharing: this.sharing,
-          availableSlots: availableSlots
-        }
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        this.events = [];
-        this.populateBookings();
-      })
+      if (!horses.length) alert('you have no registered horses!')
+      else {        
+        const dialogRef = this.createDialog.open(BookingDialogComponent, {
+          data: {
+            horses: horses,
+            startTime: event,
+            duration: this.duration,
+            jumps: this.jumps,
+            sharing: this.sharing,
+            availableSlots: availableSlots
+          }
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result !== undefined) {
+            this.events = [];
+            this.populateBookings();
+          }
+        })
+      }
     })
     return undefined    
   }
 
   eventClicked(event: any) {
-    const dialogRef = this.deleteDialog.open(DeleteEventDialogComponent, {
-      panelClass: 'my-outlined-dialog',
-      data: {
-        bookingId: event.event.id
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.events = [];
-      this.populateBookings();
-    })
+    if (event.event.color !== colors.yellow) {
+      alert('you cannot delete other peoples bookings!');
+    } else {
+      const dialogRef = this.deleteDialog.open(DeleteEventDialogComponent, {
+        panelClass: 'my-outlined-dialog',
+        data: {
+          bookingId: event.event.id
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.events = [];
+        this.populateBookings();
+      });
+    }
   }
 
   parseViewDate(): string {

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +12,13 @@ export class AppComponent {
 
   buttonRoute: string = ''
   buttonName: string = ''
+  title = 'booking-horses-ui';
+  condition = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {        
     router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
+        this.condition = this.authService.isAdmin;
         if (data.url == '/customers') {
           this.buttonRoute = '/bookings'
           this.buttonName = 'Bookings'
@@ -23,7 +28,7 @@ export class AppComponent {
           this.buttonName = 'Customers'
         }
       }
-    })
+    });
   }
 
   updateButtonRoute() {
@@ -36,6 +41,5 @@ export class AppComponent {
     }
   }
 
-  title = 'booking-horses-ui';
-  condition = true;
+  
 }

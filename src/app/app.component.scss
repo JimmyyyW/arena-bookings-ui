@@ -4,7 +4,11 @@ button {
 }
 
 .right-spacer {
-    width: 15%;
+    flex: 1 1 auto;
+}
+
+.left-spacer {
+    width: 10%;
 }
 
 .mat-button {

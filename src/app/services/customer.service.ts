@@ -27,7 +27,6 @@ export class CustomerService {
   }
 
   getCustomers() {
-    console.log(this.baseUrl);
     return this.http.get<Customer[]>(`${this.baseUrl}/customers`, this.option);
   }
 

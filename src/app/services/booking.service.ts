@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Booking } from 'src/model/booking-model';
+import { Booking, BookingCustomer } from 'src/model/booking-model';
 import { BookingDetails, BookingRequest } from '../components/booking-dialog/booking-dialog.component';
 
 @Injectable({
@@ -21,9 +21,9 @@ export class BookingService {
     .append('Authorization', 'Bearer ' + localStorage.getItem('token')),
   }  
   
-  getBookings(): Observable<Booking[]> {
+  getBookings(): Observable<BookingCustomer[]> {
     //return this.http.get<Booking[]>('http://localhost:8080/bookings', this.option)  
-    return this.http.get<Booking[]>(`${this.baseUrl}/bookings`, this.option)
+    return this.http.get<BookingCustomer[]>(`${this.baseUrl}/bookings`, this.option)
   }
   
   createBooking(booking: BookingRequest): Observable<Booking> {
@@ -31,6 +31,6 @@ export class BookingService {
   }
 
   deleteById(bookingId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${bookingId}`, this.option)
+    return this.http.delete(`${this.baseUrl}/bookings/${bookingId}`, this.option)
   }
 }

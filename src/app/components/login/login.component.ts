@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   failedLogin: Boolean = false;
+  loginError: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
           } 
         },
         error => {
-          alert('Invalid Credentials!')
+          this.loginError = true;
         }
       )
   }

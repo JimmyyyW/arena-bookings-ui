@@ -22,7 +22,10 @@
      mat-raised-button color="primary">
         Submit
     </button>
-    </mat-card>
+</mat-card>
+<div *ngIf="loginError" class="alert alert-danger">
+    <strong>Warning! incorrect cradentials</strong> 
+</div>
         
 </div>
 

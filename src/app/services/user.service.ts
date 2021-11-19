@@ -20,7 +20,6 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   createUser(user: User) {
-    console.log(user);
     return this.httpClient.post<any>(`${this.baseUrl}/users`, user, this.option)
   }
 
