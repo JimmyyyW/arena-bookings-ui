@@ -4,6 +4,7 @@ import { DateAdapter, CalendarEvent, CalendarView, CalendarEventAction, Calendar
 import { setHours, setMinutes } from 'date-fns';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { BookingService } from 'src/app/services/booking.service';
 import { Horse } from 'src/model/booking-model';
 import { HorseService } from 'src/service/horse-service.service';
@@ -62,7 +63,8 @@ export class BookingCalendarComponent {
   constructor(private bookingService: BookingService,
     public createDialog: MatDialog,
     public deleteDialog: MatDialog,
-    private horseService: HorseService
+    private horseService: HorseService,
+    private authService: AuthService
   ) {
   }
   
@@ -182,7 +184,7 @@ export class BookingCalendarComponent {
   }
 
   eventClicked(event: any) {
-    if (event.event.color !== colors.yellow) {
+    if (event.event.color !== colors.yellow && !this.authService.isAdmin) {
       alert('you cannot delete other peoples bookings!');
     } else {
       const dialogRef = this.deleteDialog.open(DeleteEventDialogComponent, {
