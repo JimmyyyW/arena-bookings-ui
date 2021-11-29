@@ -28,13 +28,4 @@ export class AuthGuard implements CanActivate {
     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
-  getDecodedAccessToken(token: string): any {
-    try{
-        return jwtDecode(token);
-    }
-    catch(Error){
-        return null;
-    }
-  }
-  
 }
