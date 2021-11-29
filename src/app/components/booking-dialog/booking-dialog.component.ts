@@ -37,7 +37,6 @@ export class BookingDialogComponent implements OnInit {
   ) { 
     this.slots = bookingDetails.availableSlots
     this.horses = bookingDetails.horses
-    console.log(bookingDetails.horses);
     this.startTime = Object.values(this.days)[bookingDetails.startTime.getDay()] 
     + ' ' + bookingDetails.startTime.toLocaleTimeString().substr(0, 5)
     this.form = this.fb.group({
@@ -70,7 +69,7 @@ export class BookingDialogComponent implements OnInit {
       endTime: endTime,
       jumps: this.form.value['jumps'],
       sharing: this.form.value['sharing'],
-    }).subscribe(data => console.log(data))
+    }).subscribe(data => data)
     this.dialogRef.close(this.bookingDetails.startTime)
     
   }
