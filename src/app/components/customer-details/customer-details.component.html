@@ -62,10 +62,12 @@
                             </p>
 
                             <button mat-raised-button color="primary"
-                                (click)="openEditCustomerDialog(row.customerId, row)">Edit Details</button>
+                                (click)="openEditCustomerDialog(row.customerId, row)">Edit</button>
+                            
                             <br>
                             <br>
-                            <b>Horses</b>
+                            
+                            <b>Horses</b>                        
                             <div *ngFor="let horse of row.horses;">
 
 
@@ -75,10 +77,10 @@
                             </div>
                             <br>
                             <button mat-raised-button class="mat-horse-button" color="primary"
-                                (click)="openAddHorseDialog(row.customerId)">Add Horse</button>
+                            (click)="openAddHorseDialog(row.customerId)">Add</button>
                             <!-- <div class="spacer"></div> -->
                             <button mat-raised-button color="primary" (click)="openDeleteHorseDialog(row.horses)">Delete
-                                horse</button>
+                            </button>
 
 
                             <br>
@@ -99,9 +101,9 @@
                             
                             <br>
                             <button mat-raised-button class="mat-horse-button" color="primary"
-                                (click)="openAddUserDialog(row.customerId)">Add User</button>
+                                (click)="openAddUserDialog(row.customerId)">Add</button>
                             <button mat-raised-button color="primary" (click)="openDeleteUserDialog(row.users)">Delete
-                                    User</button>
+                            </button>
                             <br>
                             <br>
                             <!-- <div class="example-element-symbol"> {{row.addressTwo}} </div> -->
