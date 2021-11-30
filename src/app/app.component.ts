@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -15,7 +15,18 @@ export class AppComponent {
   title = 'booking-horses-ui';
   condition = false;
 
-  constructor(private router: Router, private authService: AuthService) {        
+  baseUrl = environment.serverUrl;
+
+  option = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    }
+  }  
+
+  constructor(private router: Router, private authService: AuthService) {    
+    this.keepDynoAwake();    
     router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
         this.condition = this.authService.isAdmin;
@@ -41,5 +52,16 @@ export class AppComponent {
     }
   }
 
+  
+
+  keepDynoAwake() {
+    setInterval(() => {
+      fetch(`${this.baseUrl}/actuator/health`, this.option)
+        .then(res => res.json())      
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+        .finally(() => console.log('health check complete'));
+    }, 600000)
+  }
   
 }
