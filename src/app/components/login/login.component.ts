@@ -41,6 +41,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.get('username')?.value, this.loginForm.get('password')?.value)
       .subscribe(
         (response: HttpResponse<any>) => {        
+          response.body.authorities.forEach((element: { authority: string; }) => {
+            if (element.authority === 'ROLE_ADMIN') { 
+              this.authService.isAdmin = true;
+            }
+          });
           if (response.headers.get('Authorization') !== undefined || response.headers.get('Authorization') !== null) {
             localStorage.setItem('token', response.headers.get('Authorization')!)          
             this.router.navigateByUrl('/bookings');

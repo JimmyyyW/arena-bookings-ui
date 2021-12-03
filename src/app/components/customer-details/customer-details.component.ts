@@ -173,6 +173,10 @@ export class CustomerDetailsComponent implements OnInit {
     else if (role === 'ROLE_USER') return 'User'
     else return ''
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 }
 
 export interface CustomerDetails {

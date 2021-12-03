@@ -187,7 +187,14 @@ export class BookingCalendarComponent {
   }
 
   eventClicked(event: any) {
-    if (event.event.color !== colors.yellow && !this.authService.isAdmin) {
+    const today = new Date();
+    if (event.event.start < this.addMinutesToDate(today, 1440) && event.event.color === colors.yellow) {
+      alert('it is too late to delete this booking');
+    }
+    else if (event.event.start < today) {
+      alert('cannot delete historic bookings');
+    }
+    else if (event.event.color !== colors.yellow && !this.authService.isAdmin) {
       alert('you cannot delete other peoples bookings!');
     } else {
       const dialogRef = this.deleteDialog.open(DeleteEventDialogComponent, {
@@ -201,6 +208,14 @@ export class BookingCalendarComponent {
         this.populateBookings();
       });
     }
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  clearAuth() {
+    localStorage.removeItem('token');
   }
 
   parseViewDate(): string {

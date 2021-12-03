@@ -28,11 +28,14 @@
   </mwl-calendar-day-view>
 </div>
 
-<ng-template [ngIf]="isAdmin">
-  <div class="admin-button-container">
+<div class="admin-button-container">
+    <ng-template [ngIf]="isAdmin">
     <button class="admin-button" type="button" mat-raised-button color="primary" routerLink="/customers">
       Manage Customers
     </button>
+  </ng-template>
+  <br>
+  <button class="logout-button" type="button" mat-raised-button color="primary" routerLink="/login" (click)="logout()">
+    Logout
+  </button>
   </div>
-
-</ng-template>
