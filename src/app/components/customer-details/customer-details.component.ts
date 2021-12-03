@@ -11,6 +11,7 @@ import { EditCustomerDetailsDialogComponent } from '../edit-customer-details-dia
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { User } from 'src/app/services/user.service';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
+import { DeleteCustomerComponent } from '../delete-customer/delete-customer.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 
@@ -39,7 +40,8 @@ export class CustomerDetailsComponent implements OnInit {
      private deleteHorseDialog: MatDialog,
      private editCustomerDialog: MatDialog,
      private addUserDialog: MatDialog,
-     private deleteUserDialog: MatDialog
+     private deleteUserDialog: MatDialog,
+     private deleteCustomerDialog: MatDialog
      ) {
     this.customerService.getCustomers().subscribe(data => {
       this.customers = data;
@@ -136,15 +138,29 @@ export class CustomerDetailsComponent implements OnInit {
     
   }
 
+  openDeleteCustomerDialog(customerId: number) {
+    const dialogRef = this.deleteCustomerDialog.open(DeleteCustomerComponent, {
+      width: '90%',
+      data: {
+        customerId: customerId
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        this.customerService.getCustomers().subscribe(data => {
+          this.customers = data;
+        });
+    })
+  }
+
   wrap(inp: any) {
     if (inp == 'customerId') {
       return 'ID'
     } 
     else if (inp == 'firstName') {
-      return 'first name'
+      return ''
     }
     else if (inp == 'lastName') {
-      return 'last name'
+      return ''
     }
     else if (inp == 'phoneNumber') {
       return 'mobile'

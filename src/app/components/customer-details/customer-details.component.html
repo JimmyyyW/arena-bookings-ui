@@ -61,8 +61,10 @@
                                 {{row.postCode}}
                             </p>
 
-                            <button mat-raised-button color="primary"
-                                (click)="openEditCustomerDialog(row.customerId, row)">Edit</button>
+                            <button mat-raised-button color="primary" class="mat-customer-button"
+                                (click)="openEditCustomerDialog(row.customerId, row)">Edit</button>                        
+                            <button mat-raised-button color="primary" (click)="openDeleteCustomerDialog(row.customerId)">Delete
+                            </button>
                             
                             <br>
                             <br>
@@ -136,3 +138,9 @@
 
 
 </mat-card>
+
+<div class="calendar-button-container">
+    <button class="calendar-button" type="button" mat-raised-button color="primary" routerLink="/bookings">
+      Bookings
+    </button>
+</div>

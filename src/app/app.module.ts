@@ -32,6 +32,7 @@ import { DeleteHorseDialogComponent } from './components/delete-horse-dialog/del
 import { EditCustomerDetailsDialogComponent } from './components/edit-customer-details-dialog/edit-customer-details-dialog.component';
 import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 import { DeleteUserDialogComponent } from './components/delete-user-dialog/delete-user-dialog.component';
+import { DeleteCustomerComponent } from './components/delete-customer/delete-customer.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { DeleteUserDialogComponent } from './components/delete-user-dialog/delet
     DeleteHorseDialogComponent,
     EditCustomerDetailsDialogComponent,
     AddUserDialogComponent,
-    DeleteUserDialogComponent
+    DeleteUserDialogComponent,
+    DeleteCustomerComponent
   ],
   imports: [
     CommonModule,

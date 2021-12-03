@@ -58,6 +58,8 @@ export class BookingCalendarComponent {
   duration: number | undefined;
   jumps: boolean | undefined;
   sharing: boolean | undefined;
+
+  isAdmin: boolean = false;
   
   
   constructor(private bookingService: BookingService,
@@ -66,6 +68,7 @@ export class BookingCalendarComponent {
     private horseService: HorseService,
     private authService: AuthService
   ) {
+    this.isAdmin = authService.isAdmin;
   }
   
   closeOpenMonthViewDay() {

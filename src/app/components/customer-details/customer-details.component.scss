@@ -27,9 +27,18 @@ table {
     color: rgb(53, 30, 180);
 }
 
-.customer-details {
-    
+.calendar-button-container {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
+
+.calendar-button {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
 
 .address {
     display: inline-block;
@@ -49,6 +58,10 @@ table {
 }
 
 .mat-horse-button {
+    margin-right: 5px;
+}
+
+.mat-customer-button {
     margin-right: 5px;
 }
 

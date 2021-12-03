@@ -4,8 +4,8 @@
   <button mat-raised-button color="primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
     (viewDateChange)="closeOpenMonthViewDay()">
     Previous
-</button>
-<div class="spacer"></div>
+  </button>
+  <div class="spacer"></div>
   <button mat-raised-button color="secondary" mwlCalendarToday [(viewDate)]="viewDate">
     Today
   </button>
@@ -13,7 +13,7 @@
   <button mat-raised-button color="primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
     (viewDateChange)="closeOpenMonthViewDay()">
     Next
-</button>
+  </button>
 </div>
 
 
@@ -23,7 +23,16 @@
   <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
   </mwl-calendar-week-view>
   <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    [hourSegments]="4" [dayStartHour]="6" [dayEndHour]="21"
-    (hourSegmentClicked)="clickedDate = openDialog($event.date)" (eventClicked)="eventClicked($event)">
+    [hourSegments]="4" [dayStartHour]="6" [dayEndHour]="21" (hourSegmentClicked)="clickedDate = openDialog($event.date)"
+    (eventClicked)="eventClicked($event)">
   </mwl-calendar-day-view>
 </div>
+
+<ng-template [ngIf]="isAdmin">
+  <div class="admin-button-container">
+    <button class="admin-button" type="button" mat-raised-button color="primary" routerLink="/customers">
+      Manage Customers
+    </button>
+  </div>
+
+</ng-template>

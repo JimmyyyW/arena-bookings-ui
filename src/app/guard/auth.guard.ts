@@ -13,15 +13,26 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      
       if (localStorage.getItem('token') !== undefined 
         && localStorage.getItem('token') !== null 
         && !this.isTokenExpired(localStorage.getItem('token')!)) {        
-        return true;      
+          if (state.url === '/customers') {
+            if (this.authService.isAdmin === true) {
+              return true;
+            }
+            else {
+              this.router.navigate(['/login']);
+              return false;
+            }
+          } else return true;      
       } else {        
         this.router.navigate(['/login']);
         return false;
       }
   }
+
+
 
   isTokenExpired(token: string): boolean {
     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
