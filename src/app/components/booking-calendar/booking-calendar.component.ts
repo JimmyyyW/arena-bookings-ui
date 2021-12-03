@@ -188,7 +188,9 @@ export class BookingCalendarComponent {
 
   eventClicked(event: any) {
     const today = new Date();
-    if (event.event.start < this.addMinutesToDate(today, 1440) && event.event.color === colors.yellow) {
+    console.log(event.event.start);
+    console.log(today);
+    if (event.event.start < this.addMinutesToDate(today, 1440) && event.event.color === colors.yellow && !this.authService.isAdmin) {
       alert('it is too late to delete this booking');
     }
     else if (event.event.start < today) {
