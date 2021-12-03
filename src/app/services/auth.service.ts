@@ -13,7 +13,7 @@ export class AuthService {
   baseUrl = environment.serverUrl;
 
   isLoggedIn = false;
-  isAdmin = false;
+  isAdmin = true;
 
   option = {
     headers: new HttpHeaders()

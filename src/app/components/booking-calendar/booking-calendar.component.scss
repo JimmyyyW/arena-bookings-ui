@@ -15,16 +15,16 @@
     width: 100%;
     position: fixed;
     bottom: 0;
+    z-index: 99;
 }
 
 .admin-button {
     width: 100%;
-    position: fixed;
-    bottom: 3.8%;
+    // position: fixed;
+    z-index: 99;
 }
 
 .logout-button {
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    // position: fixed;
 }
