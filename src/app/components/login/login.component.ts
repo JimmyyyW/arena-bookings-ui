@@ -61,6 +61,12 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/signup')
   }
 
+  handleKeyUp(event: { keyCode: number; }) {
+    if (event.keyCode === 13) {
+      this.submitLoginForm();
+    } 
+  }
+
 }
 
 

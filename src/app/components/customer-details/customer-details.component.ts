@@ -31,7 +31,6 @@ export class CustomerDetailsComponent implements OnInit {
 
   customers: Customer[] = []
   displayedColumns: string[] = ['firstName', 'lastName']
-  x: number[] = [0, 1, 2, 3, 4]
   expandedRow: Customer | null = null;
 
   constructor(private createCustomerDialog: MatDialog,
