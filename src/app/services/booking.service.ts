@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Booking, BookingCustomer } from 'src/model/booking-model';
+import { Booking, BookingCustomer, BookingCustomerLp } from 'src/model/booking-model';
 import { BookingDetails, BookingRequest } from '../components/booking-dialog/booking-dialog.component';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { BookingDetails, BookingRequest } from '../components/booking-dialog/boo
 export class BookingService {
   
   constructor(private http: HttpClient) { }
-
+  
   baseUrl = environment.serverUrl
   
   option = {
@@ -26,8 +26,17 @@ export class BookingService {
     return this.http.get<BookingCustomer[]>(`${this.baseUrl}/bookings`, this.option)
   }
   
+  getBookingsLp(): Observable<BookingCustomerLp[]> {
+    //return this.http.get<Booking[]>('http://localhost:8080/bookings', this.option)  
+    return this.http.get<BookingCustomerLp[]>(`${this.baseUrl}/bookingslp`, this.option)
+  }
+  
   createBooking(booking: BookingRequest): Observable<Booking> {
     return this.http.post<Booking>(`${this.baseUrl}/bookings`, booking, this.option)
+  }
+
+  createBookingLp(args: { horseId: any; startTime: Date; endTime: Date; }) {
+    return this.http.post<Booking>(`${this.baseUrl}/bookingslp`, args, this.option)
   }
 
   deleteById(bookingId: number): Observable<any> {

@@ -7,8 +7,20 @@ export interface Booking {
     sharing: boolean
 }
 
+export interface BookingLp {
+    bookingLpId: number,
+    horse: Horse,
+    startTime: Date,
+    endTime: Date,
+}
+
 export interface BookingCustomer {
     booking: Booking,
+    customerId: number
+}
+
+export interface BookingCustomerLp {
+    bookingLp: BookingLp,
     customerId: number
 }
 

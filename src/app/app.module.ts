@@ -33,6 +33,8 @@ import { EditCustomerDetailsDialogComponent } from './components/edit-customer-d
 import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 import { DeleteUserDialogComponent } from './components/delete-user-dialog/delete-user-dialog.component';
 import { DeleteCustomerComponent } from './components/delete-customer/delete-customer.component';
+import { BookingSelectComponent } from './components/booking-select/booking-select.component';
+import { LungeBookingDialogComponent } from './components/lunge-booking-dialog/lunge-booking-dialog.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { DeleteCustomerComponent } from './components/delete-customer/delete-cus
     EditCustomerDetailsDialogComponent,
     AddUserDialogComponent,
     DeleteUserDialogComponent,
-    DeleteCustomerComponent
+    DeleteCustomerComponent,
+    BookingSelectComponent,
+    LungeBookingDialogComponent,
   ],
   imports: [
     CommonModule,
