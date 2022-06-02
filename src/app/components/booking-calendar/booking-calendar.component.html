@@ -16,12 +16,18 @@
   </button>
 </div>
 
-
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
   </mwl-calendar-week-view>
+  <div class="cal-headers">
+    <div class="header-spacer"></div>
+    <h2 class="header-1">Arena</h2>
+    <div class="header-middle-spacer"></div>
+    <h2 class="header-2">Lunge Pen</h2>
+    <div class="header-spacer"></div>
+  </div>
   <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
     [hourSegments]="4" [dayStartHour]="6" [dayEndHour]="21" (hourSegmentClicked)="clickedDate = openDialog($event.date)"
     (eventClicked)="eventClicked($event)">
@@ -29,7 +35,7 @@
 </div>
 
 <div class="admin-button-container">
-    <ng-template [ngIf]="isAdmin">
+  <ng-template [ngIf]="isAdmin">
     <button class="admin-button" type="button" mat-raised-button color="primary" routerLink="/customers">
       Manage Customers
     </button>
@@ -37,4 +43,4 @@
   <button class="logout-button" type="button" mat-raised-button color="primary" routerLink="/login" (click)="logout()">
     Logout
   </button>
-  </div>
+</div>

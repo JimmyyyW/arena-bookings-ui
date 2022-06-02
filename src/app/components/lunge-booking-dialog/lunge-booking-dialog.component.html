@@ -1,0 +1,32 @@
+<div class="dialogContainer">
+    <h2 mat-dialog-title>{{ startTime }}</h2>
+
+    <mat-dialog-content [formGroup]="form">
+
+        <mat-form-field>
+            <mat-label>Horse</mat-label>
+            <mat-select required formControlName='horseName'>
+                <mat-option *ngFor="let horse of horses" [value]="horse.horseId">
+                    {{ horse.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <mat-label>Duration</mat-label>
+            <mat-select required formControlName='duration'>
+                <mat-option *ngFor="let slot of slots" [value]="slot">
+                    {{ slot }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <br>
+        <button (click)="submitForm()" mat-raised-button color="primary"
+            [disabled]="form.pristine || form.invalid">Confirm Booking</button>
+
+    </mat-dialog-content>
+</div>

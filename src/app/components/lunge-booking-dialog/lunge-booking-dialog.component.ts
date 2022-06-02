@@ -1,17 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { BookingService } from 'src/app/services/booking.service';
 import { Horse } from 'src/model/booking-model';
 import { BookingCalendarComponent } from '../booking-calendar/booking-calendar.component';
+import { BookingDetails } from '../booking-dialog/booking-dialog.component';
 
 @Component({
-  selector: 'app-booking-dialog',
-  templateUrl: './booking-dialog.component.html',
-  styleUrls: ['./booking-dialog.component.scss']
+  selector: 'app-lunge-booking-dialog',
+  templateUrl: './lunge-booking-dialog.component.html',
+  styleUrls: ['./lunge-booking-dialog.component.scss']
 })
-export class BookingDialogComponent implements OnInit {
+export class LungeBookingDialogComponent implements OnInit {
 
   form: FormGroup;
   startTime: string;
@@ -29,30 +29,24 @@ export class BookingDialogComponent implements OnInit {
     1: 'Sunday',
   }
 
-  constructor(
-    private fb: FormBuilder,
+
+  constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<BookingCalendarComponent>,
     private bookingService: BookingService,
-    @Inject(MAT_DIALOG_DATA) public bookingDetails: BookingDetails
-  ) { 
-    this.slots = bookingDetails.availableSlots
+    @Inject(MAT_DIALOG_DATA) public bookingDetails: BookingDetails) {
+    this.slots = bookingDetails.availableSlotsLp
     this.horses = bookingDetails.horses
-    this.startTime = Object.values(this.days)[bookingDetails.startTime.getDay()] 
-    + ' ' + bookingDetails.startTime.toLocaleTimeString().substr(0, 5)
+    this.startTime = Object.values(this.days)[bookingDetails.startTime.getDay()]
+      + ' ' + bookingDetails.startTime.toLocaleTimeString().substr(0, 5)
     this.form = this.fb.group({
       horseName: ['', Validators.required],
       duration: ['', Validators.required],
-      jumps: ['', Validators.required],
-      sharing: ['', Validators.required],
-    });    
+    });
   }
-
 
   ngOnInit(): void {
     this.form.controls.horseName.setValue(this.horses[0].name)
-    this.form.controls.duration.setValue(this.bookingDetails.availableSlots.reverse()[0])
-    this.form.controls.jumps.setValue('false')
-    this.form.controls.sharing.setValue('false')
+    this.form.controls.duration.setValue(this.bookingDetails.availableSlotsLp.reverse()[0])
   }
 
   onNoClick(): void {
@@ -63,38 +57,18 @@ export class BookingDialogComponent implements OnInit {
     let start = this.bookingDetails.startTime;
     let timeToAdd = this.form.value['duration']
     let endTime = this.addMinutesToDate(start, parseInt(timeToAdd))
-    this.bookingService.createBooking({
+    this.bookingService.createBookingLp({
       horseId: this.form.value['horseName'],
       startTime: this.bookingDetails.startTime,
       endTime: endTime,
-      jumps: this.form.value['jumps'],
-      sharing: this.form.value['sharing'],
     }).subscribe(data => data)
-    this.dialogRef.close(this.bookingDetails.startTime)
-    
+    this.dialogRef.close({time: this.bookingDetails.startTime})
   }
+   
+
 
   private addMinutesToDate(date: Date, minutes: number) {
     return new Date(date.getTime() + minutes * 60000);
   }
 
-}
-
-export interface BookingDetails {
-  horses: Horse[],
-  startTime: Date,
-  duration: number,
-  jumps: boolean,
-  sharing: boolean,
-  availableSlots: number[],
-  availableSlotsLp: number[],
-  event: Event
-}
-
-export interface BookingRequest {
-  horseId: number,
-  startTime: Date,
-  endTime: Date,
-  jumps: boolean,
-  sharing: boolean
 }

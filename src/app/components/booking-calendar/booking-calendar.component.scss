@@ -28,3 +28,24 @@
     width: 100%;
     // position: fixed;
 }
+
+h2.header-1, h2.header-2 {
+    left: 10%;
+    display: inline-block;
+} 
+
+.header-spacer {
+    display: inline-block;
+    width: 30%;
+}
+
+.header-middle-spacer {
+    display: inline-block;
+    width: 35%;
+}
+.cal-headers {
+    max-height: 35px;
+    height: 100%;
+    margin-top: 0.5%;
+}
+
